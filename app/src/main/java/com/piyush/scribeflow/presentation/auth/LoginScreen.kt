@@ -13,13 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.piyush.scribeflow.presentation.auth.viewmodel.LoginViewModel
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel = viewModel()
+    onLoginSuccess: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
+    val uiState = loginViewModel.uiState.collectAsState()
+    if (uiState.value.isLoggedIn) {
+        onLoginSuccess()
+    }
 
     Column(
         modifier = Modifier
@@ -38,7 +44,7 @@ fun LoginScreen(
         )
 
         OutlinedTextField(
-            value = loginViewModel.uiState.email,
+            value = uiState.value.email,
             onValueChange = {
                 loginViewModel.onEmailChange(it)
             },
@@ -53,7 +59,7 @@ fun LoginScreen(
         )
 
         OutlinedTextField(
-            value = loginViewModel.uiState.password,
+            value = uiState.value.password,
             onValueChange = {
                 loginViewModel.onPasswordChange(it)
             },
@@ -74,7 +80,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                if (loginViewModel.uiState.isLoading)
+                if (uiState.value.isLoading)
                     "Loading..."
                 else
                     "Login"
