@@ -1,45 +1,66 @@
 package com.piyush.scribeflow.presentation.auth.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.piyush.scribeflow.presentation.auth.LoginUiState
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
+import com.piyush.scribeflow.domain.repository.AuthRepository
+import com.piyush.scribeflow.presentation.auth.LoginUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    var uiState by mutableStateOf(LoginUiState())
-        private set
+    private val _uiState =
+        MutableStateFlow(LoginUiState())
+
+    val uiState = _uiState.asStateFlow()
 
     fun onEmailChange(value: String) {
-        uiState = uiState.copy(
-            email = value
-        )
+
+        _uiState.update {
+            it.copy(
+                email = value
+            )
+        }
     }
 
     fun onPasswordChange(value: String) {
-        uiState = uiState.copy(
-            password = value
-        )
+
+        _uiState.update {
+            it.copy(
+                password = value
+            )
+        }
     }
 
     fun login() {
 
         viewModelScope.launch {
 
-            uiState = uiState.copy(
-                isLoading = true
-            )
+            _uiState.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
 
-            delay(2000)
+            val success =
+                authRepository.login(
+                    _uiState.value.email,
+                    _uiState.value.password
+                )
 
-            uiState = uiState.copy(
-                isLoading = false,
-                isLoggedIn = true
-            )
+            _uiState.update {
+                it.copy(
+                    isLoading = false,
+                    isLoggedIn = success
+                )
+            }
         }
     }
 }

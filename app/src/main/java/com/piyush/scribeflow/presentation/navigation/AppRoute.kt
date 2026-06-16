@@ -5,4 +5,6 @@ sealed class AppRoute(
     data object Login : AppRoute("login")
 
     data object Dashboard : AppRoute("dashboard")
+
+    data object Appointment : AppRoute("appointment")
 }
