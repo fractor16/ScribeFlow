@@ -1,6 +1,5 @@
 package com.piyush.scribeflow.presentation.dashboard
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +22,9 @@ import com.piyush.scribeflow.core.ui.components.StatCard
 
 @Composable
 fun DashboardScreen(
-    onCreateAppointment: () -> Unit
+    onCreateAppointment: () -> Unit,
+    onStartRecording: () -> Unit
+
 ) {
 
     Column(
@@ -122,7 +123,7 @@ fun DashboardScreen(
 
         Button(
             onClick = {
-
+                onStartRecording()
             },
             modifier = Modifier.fillMaxWidth()
         ) {

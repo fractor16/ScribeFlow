@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+
     kotlin("kapt")
 }
 
@@ -78,4 +80,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 }

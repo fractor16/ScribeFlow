@@ -7,4 +7,9 @@ sealed class AppRoute(
     data object Dashboard : AppRoute("dashboard")
 
     data object Appointment : AppRoute("appointment")
+
+    data object Recording : AppRoute("recording")
+
+    data object RecordingHistory :
+        AppRoute("recording_history")
 }

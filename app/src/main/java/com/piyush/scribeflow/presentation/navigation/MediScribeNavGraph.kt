@@ -7,6 +7,8 @@ import androidx.navigation.compose.rememberNavController
 import com.piyush.scribeflow.presentation.appointment.AppointmentScreen
 import com.piyush.scribeflow.presentation.auth.LoginScreen
 import com.piyush.scribeflow.presentation.dashboard.DashboardScreen
+import com.piyush.scribeflow.presentation.recording.RecordingHistoryScreen
+import com.piyush.scribeflow.presentation.recording.RecordingScreen
 
 @Composable
 fun MediScribeNavGraph() {
@@ -46,6 +48,12 @@ fun MediScribeNavGraph() {
                     navController.navigate(
                         AppRoute.Appointment.route
                     )
+                },
+
+                onStartRecording = {
+                    navController.navigate(
+                        AppRoute.Recording.route
+                    )
                 }
             )
         }
@@ -55,6 +63,24 @@ fun MediScribeNavGraph() {
             route = AppRoute.Appointment.route
         ) {
             AppointmentScreen()
+        }
+
+        composable(
+            route = AppRoute.Recording.route
+        ) {
+            RecordingScreen(
+                onOpenHistory = {
+                    navController.navigate(
+                        AppRoute.RecordingHistory.route
+                    )
+                }
+            )
+        }
+
+        composable(
+            route = AppRoute.RecordingHistory.route
+        ) {
+            RecordingHistoryScreen()
         }
     }
 }
