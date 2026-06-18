@@ -2,6 +2,7 @@ package com.piyush.scribeflow.data.repository
 
 import com.piyush.scribeflow.data.local.dao.AppointmentDao
 import com.piyush.scribeflow.data.local.entity.AppointmentEntity
+import com.piyush.scribeflow.data.local.relation.AppointmentWithRecordings
 import com.piyush.scribeflow.domain.repository.AppointmentRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -24,4 +25,16 @@ class AppointmentRepositoryImpl @Inject constructor(
 
         return appointmentDao.getAppointments()
     }
+
+    override fun getAppointmentWithRecordings(
+        appointmentId: Int
+    ): Flow<AppointmentWithRecordings> {
+
+        return appointmentDao
+            .getAppointmentWithRecordings(
+                appointmentId
+            )
+    }
+
+
 }

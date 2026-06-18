@@ -1,6 +1,6 @@
 package com.piyush.scribeflow.presentation.appointment
 
-import androidx.compose.foundation.layout.Arrangement
+import AppRoute
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +23,7 @@ import com.piyush.scribeflow.presentation.appointment.viewmodel.AppointmentViewM
 
 @Composable
 fun AppointmentScreen(
+    onAppointmentClick: (Int) -> Unit,
     appointmentViewModel: AppointmentViewModel = hiltViewModel()
 ) {
 
@@ -102,7 +103,10 @@ fun AppointmentScreen(
 
             AppointmentCard(
                 patientName = it.patientName,
-                reason = it.appointmentReason
+                reason = it.appointmentReason,
+                onClick = {
+                    onAppointmentClick(it.id)
+                }
             )
         }
     }

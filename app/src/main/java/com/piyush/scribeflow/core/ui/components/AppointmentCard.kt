@@ -1,5 +1,6 @@
 package com.piyush.scribeflow.core.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,13 +15,16 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AppointmentCard(
     patientName: String,
-    reason: String
+    reason: String,
+    onClick: () -> Unit
 ) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
+            .clickable {
+                onClick()
+            },
 
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp

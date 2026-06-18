@@ -86,6 +86,7 @@ class RecordingViewModel @Inject constructor(
                 recordingRepository.saveRecording(
 
                     RecordingEntity(
+                        appointmentId = 1,
                         filePath = it,
                         createdAt = System.currentTimeMillis()
                     )

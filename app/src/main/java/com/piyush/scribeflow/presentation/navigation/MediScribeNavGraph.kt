@@ -1,9 +1,11 @@
 package com.piyush.scribeflow.presentation.navigation
 
+import AppRoute
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.piyush.scribeflow.presentation.appointment.AppointmentDetailsScreen
 import com.piyush.scribeflow.presentation.appointment.AppointmentScreen
 import com.piyush.scribeflow.presentation.auth.LoginScreen
 import com.piyush.scribeflow.presentation.dashboard.DashboardScreen
@@ -62,7 +64,17 @@ fun MediScribeNavGraph() {
         composable(
             route = AppRoute.Appointment.route
         ) {
-            AppointmentScreen()
+
+            AppointmentScreen(
+
+                onAppointmentClick = { appointmentId ->
+
+                    navController.navigate(
+                        AppRoute.AppointmentDetails
+                            .createRoute(appointmentId)
+                    )
+                }
+            )
         }
 
         composable(
@@ -82,5 +94,22 @@ fun MediScribeNavGraph() {
         ) {
             RecordingHistoryScreen()
         }
+
+
+        composable(
+            route = AppRoute.AppointmentDetails.route
+        ) { backStackEntry ->
+
+            val appointmentId =
+                backStackEntry.arguments
+                    ?.getString("appointmentId")
+                    ?.toIntOrNull() ?: 0
+
+            AppointmentDetailsScreen(
+                appointmentId = appointmentId
+            )
+        }
+
+
     }
 }

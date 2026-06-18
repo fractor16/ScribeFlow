@@ -12,7 +12,7 @@ import com.piyush.scribeflow.data.local.entity.RecordingEntity
         AppointmentEntity::class,
         RecordingEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

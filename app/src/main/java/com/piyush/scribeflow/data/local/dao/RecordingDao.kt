@@ -17,4 +17,11 @@ interface RecordingDao {
     @Query("SELECT * FROM recordings ORDER BY createdAt DESC")
     fun getRecordings():
             Flow<List<RecordingEntity>>
+
+    @Query(
+        "SELECT * FROM recordings WHERE appointmentId = :appointmentId"
+    )
+    fun getRecordingsForAppointment(
+        appointmentId: Int
+    ): Flow<List<RecordingEntity>>
 }

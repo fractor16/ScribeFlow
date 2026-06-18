@@ -12,4 +12,12 @@ sealed class AppRoute(
 
     data object RecordingHistory :
         AppRoute("recording_history")
+
+    data object AppointmentDetails :
+        AppRoute("appointment_details/{appointmentId}") {
+
+        fun createRoute(
+            appointmentId: Int
+        ) = "appointment_details/$appointmentId"
+    }
 }
